@@ -6,7 +6,7 @@ const nameInput = document.querySelector("#name");
 const emailInput = document.querySelector("#email");
 const jobRoles = document.querySelector("#title");
 const otherJobRoleInput = document.querySelector("#other-job-role");
-const shirtColors = document.querySelector("#shirt-colors");
+const shirtColors = document.querySelector("#color");
 const shirtDesign = document.querySelector("#design");
 const activities = document.querySelector("#activities");
 const activitiesContainer = document.querySelector("#activities-box");
@@ -32,9 +32,8 @@ const initApp = function () {
   //Hiding other job input field
   otherJobRoleInput.classList.add("hidden");
   //Hidding shirt colors box
-  shirtColors.classList.add("hidden");
+  shirtColors.disabled = true;
   //Hiding payment methods
-  creditCardContainter.classList.add("hidden");
   paypalContainer.classList.add("hidden");
   bitcoinContainer.classList.add("hidden");
 };
@@ -43,7 +42,7 @@ initApp();
 //Show color dropdown options
 const showColorOptions = function (e) {
   //removing hidden class
-  shirtColors.classList.remove("hidden");
+  shirtColors.disabled = false;
 
   //variable to store selected shirt option
   const shirtThemeOption = e.target.value;
@@ -133,7 +132,10 @@ const nameValidation = function () {
 };
 //Validates email
 const emailValidation = function () {
-  const isValidEmail = /^[^@]+@[^@.]+\.com$/i.test(emailInput.value);
+  //Regex taken from http://emailregex.com/
+  const regex =
+    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i;
+  const isValidEmail = regex.test(emailInput.value);
 
   if (isValidEmail) {
     validationSuccess(emailInput);
